@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pokeworld.Pokedex.Domain;
+using Pokeworld.Pokedex.Domain.Extensions;
 
 namespace Pokeworld.Pokedex.Api
 {
@@ -18,8 +20,10 @@ namespace Pokeworld.Pokedex.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDomainDependencies();
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
