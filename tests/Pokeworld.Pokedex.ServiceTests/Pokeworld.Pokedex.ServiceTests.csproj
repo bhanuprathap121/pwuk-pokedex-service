@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Pokeworld.Pokedex.Api\Pokeworld.Pokedex.Api.csproj" />
+    <ProjectReference Include="..\..\src\Pokeworld.Pokedex.Contracts\Pokeworld.Pokedex.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
