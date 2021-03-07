@@ -49,5 +49,29 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
             response.Result.ShouldNotBeNull();
             var result = response.Result.ShouldBeOfType<NotFoundObjectResult>();
         }
+
+        [Fact]
+        public async Task GetTranslatedAsync_Should_Return_200_When_Request_Is_Successful()
+        {
+            var expectedResponse = _fixture.Create<TranslatedPokemonResponse>();
+            _queryHandlerMock.Setup(m => m.GetTranslatedAsync(PokemonName)).ReturnsAsync(expectedResponse).Verifiable();
+
+            var response = await _sutController.GetTranslatedPokemonAsync(PokemonName);
+
+            _queryHandlerMock.Verify(m => m.GetTranslatedAsync(PokemonName), Times.Once);
+            var result = response.Result.Should().BeOfType<OkObjectResult>().Subject;
+            result.Value.Should().Be(expectedResponse);
+        }
+
+        [Fact]
+        public async Task GetTranslatedAsync_Should_Return_404_When_The_Pokemon_Not_Exists()
+        {
+            _queryHandlerMock.Setup(m => m.GetTranslatedAsync(It.IsAny<string>())).ThrowsAsync(new PokemonNotExistException());
+
+            var response = await _sutController.GetTranslatedPokemonAsync(PokemonName);
+
+            response.Result.ShouldNotBeNull();
+            var result = response.Result.ShouldBeOfType<NotFoundObjectResult>();
+        }
     }
 }
