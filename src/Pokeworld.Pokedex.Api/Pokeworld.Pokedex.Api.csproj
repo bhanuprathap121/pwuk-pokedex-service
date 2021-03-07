@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pokeworld.Pokedex.Clients\Pokeworld.Pokedex.Clients.csproj" />
     <ProjectReference Include="..\Pokeworld.Pokedex.Contracts\Pokeworld.Pokedex.Contracts.csproj" />
     <ProjectReference Include="..\Pokeworld.Pokedex.Domain\Pokeworld.Pokedex.Domain.csproj" />
   </ItemGroup>

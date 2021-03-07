@@ -1,18 +1,28 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace Pokeworld.Pokedex.Clients
 {
+    [ExcludeFromCodeCoverage]
     public class Client : IClient
     {
         private readonly HttpClient _httpClient;
+        private readonly JsonSerializerOptions _serializerOptions;
 
         public Client()
         {
             _httpClient = new HttpClient();
+            _serializerOptions = new JsonSerializerOptions
+            {
+                //Encoder = JavaScriptEncoder.Create(Encoding.UTF8),
+                WriteIndented = true
+            };
         }
 
         public async Task<T> GetAsync<T>(string path)
@@ -31,7 +41,7 @@ namespace Pokeworld.Pokedex.Clients
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(json);
+            return JsonSerializer.Deserialize<T>(json, _serializerOptions );
         }
     }
 }

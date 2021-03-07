@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Moq;
 using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Clients.PokeApi;
 using Pokeworld.Pokedex.Clients.PokeApi.Contracts;
-using Shouldly;
 using Xunit;
 
-namespace Pokeworld.Pokedex.UnitTests.Clients
+namespace Pokeworld.Pokedex.UnitTests.Clients.PokeApi
 {
     public class PokeApiClientTests
     {
