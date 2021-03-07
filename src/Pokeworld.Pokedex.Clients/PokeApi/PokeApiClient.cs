@@ -17,10 +17,4 @@ namespace Pokeworld.Pokedex.Clients.PokeApi
 
         public async Task<PokemonSpeciesResponse> GetPokemonSpeciesDetailsAsync(string speciesUrl) => await _client.GetAsync<PokemonSpeciesResponse>(speciesUrl);
     }
-
-    public interface IPokeApiClient
-    {
-        Task<PokemonResponse> GetPokemonDetailsAsync(string name);
-        Task<PokemonSpeciesResponse> GetPokemonSpeciesDetailsAsync(string speciesUrl);
-    }
 }
