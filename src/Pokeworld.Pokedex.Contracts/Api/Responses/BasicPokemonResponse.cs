@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pokeworld.Pokedex.Contracts.Api.Responses
+﻿namespace Pokeworld.Pokedex.Contracts.Api.Responses
 {
     public class BasicPokemonResponse
     {

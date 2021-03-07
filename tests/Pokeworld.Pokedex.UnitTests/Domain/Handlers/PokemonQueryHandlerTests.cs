@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Clients.PokeApi.Contracts;

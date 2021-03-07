@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using LightBDD.XUnit2;
+﻿using LightBDD.XUnit2;
 using Pokeworld.Pokedex.ServiceTests.Infrastructure;
 
 [assembly: ConfiguredLightBddScope]

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Pokeworld.Pokedex.Contracts.Api.Responses;

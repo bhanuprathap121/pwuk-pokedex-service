@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Microsoft.AspNetCore.Http;
-using Pokeworld.Pokedex.Clients.PokeApi;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
 using Pokeworld.Pokedex.ServiceTests.Extensions;
 using Pokeworld.Pokedex.ServiceTests.Infrastructure;

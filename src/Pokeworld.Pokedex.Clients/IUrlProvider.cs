@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace Pokeworld.Pokedex.Clients
+﻿namespace Pokeworld.Pokedex.Clients
 {
     public interface IUrlProvider
     {

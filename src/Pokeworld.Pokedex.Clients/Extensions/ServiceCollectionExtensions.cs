@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokeworld.Pokedex.Clients.PokeApi;
 using Pokeworld.Pokedex.Clients.PokeApi.Queries;

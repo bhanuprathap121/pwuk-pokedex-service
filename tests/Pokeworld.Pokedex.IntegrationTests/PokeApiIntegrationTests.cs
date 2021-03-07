@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Clients.PokeApi;
 using Pokeworld.Pokedex.IntegrationTests.Infrastructure;

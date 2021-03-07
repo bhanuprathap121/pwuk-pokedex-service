@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Pokeworld.Pokedex.Clients.PokeApi.Contracts;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
 

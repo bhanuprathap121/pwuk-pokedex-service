@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoFixture;
-using Microsoft.Extensions.Configuration;
+﻿using AutoFixture;
 using Microsoft.Extensions.Options;
-using Moq;
 using Pokeworld.Pokedex.Clients;
 using Shouldly;
 using Xunit;
