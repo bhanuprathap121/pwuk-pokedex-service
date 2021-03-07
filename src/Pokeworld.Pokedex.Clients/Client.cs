@@ -2,11 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
-using System.Net.Mime;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace Pokeworld.Pokedex.Clients
@@ -23,6 +19,7 @@ namespace Pokeworld.Pokedex.Clients
             _serializerOptions = new JsonSerializerOptions
             {
                 WriteIndented = true
+                // Todo : Language encoding
             };
         }
 
