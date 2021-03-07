@@ -5,10 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.15.0" />
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Pokeworld.Pokedex.Api\Pokeworld.Pokedex.Api.csproj" />
     <ProjectReference Include="..\..\src\Pokeworld.Pokedex.Clients\Pokeworld.Pokedex.Clients.csproj" />
     <ProjectReference Include="..\..\src\Pokeworld.Pokedex.Domain\Pokeworld.Pokedex.Domain.csproj" />
   </ItemGroup>
