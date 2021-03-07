@@ -38,5 +38,23 @@ namespace Pokeworld.Pokedex.Api.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+        [HttpGet("translated/{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TranslatedPokemonResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TranslatedPokemonResponse>> GetTranslatedPokemonAsync(string name)
+        {
+            try
+            {
+                var response = await _pokemonQueryHandler.GetTranslatedAsync(name);
+
+                return Ok(response);
+            }
+            catch (PokemonNotExistException ex)
+            {
+                _logger.LogError(ex.Message);
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

@@ -20,7 +20,6 @@ namespace Pokeworld.Pokedex.Domain.Handlers
             try
             {
                 var pokemonDetails = await _pokeApiQueries.GetPokemonResponse(name);
-                //todo check if pokemon details has a valid url
                 var pokemonSpeciesDetails = await _pokeApiQueries.GetPokemonSpeciesDetails(pokemonDetails.Species.Url);
                 return pokemonDetails.ToBasicPokemonResponse(pokemonSpeciesDetails);
             }
@@ -29,6 +28,11 @@ namespace Pokeworld.Pokedex.Domain.Handlers
                throw new PokemonNotExistException(ex.Message);
             }
            
+        }
+
+        public async Task<TranslatedPokemonResponse> GetTranslatedAsync(string name)
+        {
+            return new TranslatedPokemonResponse {Name = name};
         }
     }
 }
