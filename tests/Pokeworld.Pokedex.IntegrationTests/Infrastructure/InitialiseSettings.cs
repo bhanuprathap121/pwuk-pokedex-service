@@ -10,7 +10,7 @@ namespace Pokeworld.Pokedex.IntegrationTests.Infrastructure
         public IConfiguration Configuration { get; set; }
         public InitialiseSettings()
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory;
+            var path = AppContext.BaseDirectory;
             var appSettingsGeneral = Path.Combine(path, "appsettings.integrationtests.json");
 
             var config = new ConfigurationBuilder();

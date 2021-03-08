@@ -47,13 +47,13 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
             var response = await _sutController.GetAsync(PokemonName);
 
             response.Result.ShouldNotBeNull();
-            var result = response.Result.ShouldBeOfType<NotFoundObjectResult>();
+            response.Result.ShouldBeOfType<NotFoundObjectResult>();
         }
 
         [Fact]
         public async Task GetTranslatedAsync_Should_Return_200_When_Request_Is_Successful()
         {
-            var expectedResponse = _fixture.Create<TranslatedPokemonResponse>();
+            var expectedResponse = _fixture.Create<BasicPokemonResponse>();
             _queryHandlerMock.Setup(m => m.GetTranslatedAsync(PokemonName)).ReturnsAsync(expectedResponse).Verifiable();
 
             var response = await _sutController.GetTranslatedPokemonAsync(PokemonName);
@@ -71,7 +71,7 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
             var response = await _sutController.GetTranslatedPokemonAsync(PokemonName);
 
             response.Result.ShouldNotBeNull();
-            var result = response.Result.ShouldBeOfType<NotFoundObjectResult>();
+            response.Result.ShouldBeOfType<NotFoundObjectResult>();
         }
     }
 }
