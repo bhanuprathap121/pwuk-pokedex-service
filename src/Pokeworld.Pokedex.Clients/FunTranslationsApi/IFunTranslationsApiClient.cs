@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Pokeworld.Pokedex.Clients.FunTranslationsApi.Contracts;
-using Pokeworld.Pokedex.Clients.PokeApi.Contracts;
 
 namespace Pokeworld.Pokedex.Clients.FunTranslationsApi
 {

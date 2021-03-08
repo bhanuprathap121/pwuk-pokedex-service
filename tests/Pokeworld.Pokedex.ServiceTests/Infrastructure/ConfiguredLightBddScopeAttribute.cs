@@ -8,15 +8,5 @@ namespace Pokeworld.Pokedex.ServiceTests.Infrastructure
 {
     internal class ConfiguredLightBddScopeAttribute : LightBddScopeAttribute
     {
-        private ServiceSettings _settings;
-
-        protected override void OnSetUp()
-        {
-            _settings = ServiceSettingsFactory.GetServiceSettings();
-        }
-
-        protected override void OnTearDown()
-        {
-        }
     }
 }

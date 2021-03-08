@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Clients.FunTranslationsApi;

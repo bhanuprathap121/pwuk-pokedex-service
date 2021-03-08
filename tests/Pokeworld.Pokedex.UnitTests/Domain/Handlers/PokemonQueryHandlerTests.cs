@@ -16,7 +16,6 @@ using Pokeworld.Pokedex.Domain.Extensions;
 using Pokeworld.Pokedex.Domain.Handlers;
 using Shouldly;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
 {
@@ -58,10 +57,19 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
         [Fact]
         public void GetAsync_Throws_When_The_Pokemon_Not_Exists()
         {
-            var expectedResponse = _fixture.Create<BasicPokemonResponse>();
-            _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ThrowsAsync(new ServiceErrorException("not-found")).Verifiable();
+            _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ThrowsAsync(new ServiceErrorException()).Verifiable();
 
-            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>().Result.Message.ShouldContain("not-found");
+            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>();
+
+            _pokeApiQueriesMock.Verify(m => m.GetPokemonResponse(PokemonName), Times.Once);
+        }
+
+        [Fact]
+        public void GetAsync_Throws_When_Upstream_Error()
+        {
+            _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ThrowsAsync(new ServiceErrorException("unknown", HttpStatusCode.BadGateway)).Verifiable();
+
+            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<ServiceErrorException>().Result.StatusCode.ShouldBe(HttpStatusCode.BadGateway);
 
             _pokeApiQueriesMock.Verify(m => m.GetPokemonResponse(PokemonName), Times.Once);
         }
@@ -69,13 +77,12 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
         [Fact]
         public void GetAsync_Throws_When_The_Pokemon_Species_Not_Exists()
         {
-            var expectedResponse = _fixture.Create<BasicPokemonResponse>();
             var pokemonResponse = _fixture.Create<PokemonResponse>();
 
             _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ReturnsAsync(pokemonResponse).Verifiable();
-            _pokeApiQueriesMock.Setup(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url)).ThrowsAsync(new ServiceErrorException("not-found")).Verifiable();
+            _pokeApiQueriesMock.Setup(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url)).ThrowsAsync(new ServiceErrorException("not-found", HttpStatusCode.NotFound)).Verifiable();
 
-            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>().Result.Message.ShouldContain("not-found");
+            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>();
 
             _pokeApiQueriesMock.Verify(m => m.GetPokemonResponse(PokemonName), Times.Once);
             _pokeApiQueriesMock.Verify(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url), Times.Once);
@@ -112,7 +119,6 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
         {
             var pokemonResponse = _fixture.Create<PokemonResponse>();
             var speciesResponse = _fixture.Create<PokemonSpeciesResponse>();
-            var translatedResponse = _fixture.Create<TranslationResponse>();
 
             var standardExpectedResponse = pokemonResponse.ToBasicPokemonResponse(speciesResponse);
 
@@ -137,10 +143,9 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
         [Fact]
         public void GetTranslatedAsync_Throws_When_The_Pokemon_Not_Exists()
         {
-            var expectedResponse = _fixture.Create<BasicPokemonResponse>();
-            _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ThrowsAsync(new ServiceErrorException("not-found")).Verifiable();
+            _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ThrowsAsync(new ServiceErrorException()).Verifiable();
 
-            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>().Result.Message.ShouldContain("not-found");
+            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>();
 
             _pokeApiQueriesMock.Verify(m => m.GetPokemonResponse(PokemonName), Times.Once);
         }
@@ -148,13 +153,12 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Handlers
         [Fact]
         public void GetTranslatedAsync_Throws_When_The_Pokemon_Species_Not_Exists()
         {
-            var expectedResponse = _fixture.Create<BasicPokemonResponse>();
             var pokemonResponse = _fixture.Create<PokemonResponse>();
 
             _pokeApiQueriesMock.Setup(m => m.GetPokemonResponse(PokemonName)).ReturnsAsync(pokemonResponse).Verifiable();
-            _pokeApiQueriesMock.Setup(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url)).ThrowsAsync(new ServiceErrorException("not-found")).Verifiable();
+            _pokeApiQueriesMock.Setup(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url)).ThrowsAsync(new ServiceErrorException()).Verifiable();
 
-            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>().Result.Message.ShouldContain("not-found");
+            _sutHandler.GetAsync(PokemonName).ShouldThrowAsync<PokemonNotExistException>();
 
             _pokeApiQueriesMock.Verify(m => m.GetPokemonResponse(PokemonName), Times.Once);
             _pokeApiQueriesMock.Verify(m => m.GetPokemonSpeciesDetails(pokemonResponse.Species.Url), Times.Once);

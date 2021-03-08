@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using AutoFixture;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Pokeworld.Pokedex.Domain.Extensions;
-using Shouldly;
 using Xunit;
 
 namespace Pokeworld.Pokedex.UnitTests.Domain.Extensions

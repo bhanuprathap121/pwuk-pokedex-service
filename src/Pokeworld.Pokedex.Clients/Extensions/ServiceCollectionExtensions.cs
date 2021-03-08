@@ -12,7 +12,7 @@ namespace Pokeworld.Pokedex.Clients.Extensions
     {
         public static void AddClientDependencies(this IServiceCollection services)
         {
-            services.AddSingleton<IClient, Client>();
+            services.AddScoped<IClient, Client>();
             services.AddSingleton<IUrlProvider, UrlProvider>();
             services.AddScoped<IPokeApiClient, PokeApiClient>();
             services.AddScoped<IFunTranslationsApiClient, FunTranslationsApiClient>();
