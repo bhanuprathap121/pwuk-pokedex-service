@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Pokeworld.Pokedex.Api.Controllers;
+using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
 using Pokeworld.Pokedex.Domain.Exceptions;
 using Pokeworld.Pokedex.Domain.Handlers;
@@ -51,6 +53,17 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
         }
 
         [Fact]
+        public async Task GetAsync_Should_Return_Error()
+        {
+            _queryHandlerMock.Setup(m => m.GetAsync(It.IsAny<string>())).ThrowsAsync(new ServiceErrorException("unknown", HttpStatusCode.BadGateway));
+
+            var response = await _sutController.GetAsync(PokemonName);
+
+            response.Result.ShouldNotBeNull();
+            response.Result.ShouldBeOfType<ObjectResult>().StatusCode.Should().Be((int)HttpStatusCode.BadGateway);
+        }
+
+        [Fact]
         public async Task GetTranslatedAsync_Should_Return_200_When_Request_Is_Successful()
         {
             var expectedResponse = _fixture.Create<BasicPokemonResponse>();
@@ -72,6 +85,17 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
 
             response.Result.ShouldNotBeNull();
             response.Result.ShouldBeOfType<NotFoundObjectResult>();
+        }
+
+        [Fact]
+        public async Task GetTranslatedAsync_Should_Return_Error()
+        {
+            _queryHandlerMock.Setup(m => m.GetTranslatedAsync(It.IsAny<string>())).ThrowsAsync(new ServiceErrorException("unknown", HttpStatusCode.BadGateway));
+
+            var response = await _sutController.GetTranslatedPokemonAsync(PokemonName);
+
+            response.Result.ShouldNotBeNull();
+            response.Result.ShouldBeOfType<ObjectResult>().StatusCode.Should().Be((int)HttpStatusCode.BadGateway);
         }
     }
 }

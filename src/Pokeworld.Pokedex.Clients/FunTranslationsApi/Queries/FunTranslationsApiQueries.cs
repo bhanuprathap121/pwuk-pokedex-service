@@ -17,13 +17,9 @@ namespace Pokeworld.Pokedex.Clients.FunTranslationsApi.Queries
             TranslationResponse translationResponse;
 
             if (pokemonDetails.Habitat.ToLowerInvariant() == "cave" || pokemonDetails.IsLegendary)
-            {
                 translationResponse = await _apiClient.GetYodaTranslatedText(pokemonDetails.Description);
-            }
             else
-            {
                 translationResponse = await _apiClient.GetShakespeareTranslatedText(pokemonDetails.Description);
-            }
 
             return translationResponse;
         }

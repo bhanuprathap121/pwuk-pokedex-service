@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Pokeworld.Pokedex.Clients;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
 using Pokeworld.Pokedex.Domain.Exceptions;
 using Pokeworld.Pokedex.Domain.Handlers;
@@ -37,6 +38,11 @@ namespace Pokeworld.Pokedex.Api.Controllers
                 _logger.LogError(ex.Message);
                 return NotFound(ex.Message);
             }
+            catch (ServiceErrorException ex)
+            {
+                _logger.LogError(ex.Message, ex.StatusCode); 
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
         }
 
         [HttpGet("translated/{name}")]
@@ -54,6 +60,11 @@ namespace Pokeworld.Pokedex.Api.Controllers
             {
                 _logger.LogError(ex.Message);
                 return NotFound(ex.Message);
+            }
+            catch (ServiceErrorException ex)
+            {
+                _logger.LogError(ex.Message, ex.StatusCode);
+                return StatusCode((int)ex.StatusCode, ex.Message);
             }
         }
     }

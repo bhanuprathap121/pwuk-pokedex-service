@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Pokeworld.Pokedex.Clients;
-using Pokeworld.Pokedex.Clients.FunTranslationsApi.Contracts;
 using Pokeworld.Pokedex.Clients.FunTranslationsApi.Queries;
 using Pokeworld.Pokedex.Clients.PokeApi.Queries;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
@@ -33,7 +32,9 @@ namespace Pokeworld.Pokedex.Domain.Handlers
             }
             catch (ServiceErrorException ex)
             {
-               throw new PokemonNotExistException(ex.Message);
+                if (ex.StatusCode == HttpStatusCode.NotFound)
+                    throw new PokemonNotExistException(ex.Message, innerException: ex);
+                throw;
             }
         }
 
@@ -49,7 +50,7 @@ namespace Pokeworld.Pokedex.Domain.Handlers
             }
             catch (ServiceErrorException ex)
             {
-                _logger.LogError("Error in GetTranslatedAsync", ex.Message, ex.StatusCode);
+                _logger.LogError("Error in GetTranslatedAsync", ex.Message, ex.StatusCode, ex.InnerException);
             }
 
             return pokemonDetails;

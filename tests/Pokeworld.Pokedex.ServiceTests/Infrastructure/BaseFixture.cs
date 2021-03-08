@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using LightBDD.XUnit2;
 using Pokeworld.Pokedex.Api;
@@ -9,21 +10,28 @@ namespace Pokeworld.Pokedex.ServiceTests.Infrastructure
 {
     public class BaseFixture : FeatureFixture, IDisposable
     {
-        protected static HttpClient DevHttpClient = ConfigHttpClient();
         protected HttpClient Client { get; }
+        private readonly List<Action> _actionsOnDispose = new List<Action>();
 
-        public BaseFixture()
+        protected BaseFixture()
         {
-            Client = DevHttpClient;
+            Client = ConfigHttpClient();
+            _actionsOnDispose.Add(() => Client?.Dispose());
         }
 
-        private static HttpClient ConfigHttpClient()
+        private HttpClient ConfigHttpClient()
         {
             var factory = new WebApplicationFactory<Startup>();
+            _actionsOnDispose.Add(() => factory?.Dispose());
             return factory.CreateClient();
         }
+
         public void Dispose()
         {
+            foreach (var action in _actionsOnDispose)
+            {
+                action();
+            }
         }
     }
 }

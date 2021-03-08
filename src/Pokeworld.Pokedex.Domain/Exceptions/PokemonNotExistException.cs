@@ -8,7 +8,7 @@ namespace Pokeworld.Pokedex.Domain.Exceptions
         {
         }
 
-        public PokemonNotExistException(string message) : base(message)
+        public PokemonNotExistException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

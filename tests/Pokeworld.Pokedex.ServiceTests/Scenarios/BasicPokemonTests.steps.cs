@@ -19,7 +19,7 @@ namespace Pokeworld.Pokedex.ServiceTests.Scenarios
 
         private async Task I_am_requesting_the_basic_pokemon_details(string name)
         {
-            _viewBasicPokemonResponse = await PokeApiServiceClient.GetBasicPokemonDetails(Client, name);
+            _viewBasicPokemonResponse = await PokedexApiClient.GetBasicPokemonDetails(Client, name);
             await Task.CompletedTask;
         }
 
@@ -29,7 +29,15 @@ namespace Pokeworld.Pokedex.ServiceTests.Scenarios
             var response = await _viewBasicPokemonResponse.DeserializeResponseContent<BasicPokemonResponse>();
             AssertBasicPokemonResponse(response, _mewtwoPokemonResponse);
         }
-        private static void AssertBasicPokemonResponse(BasicPokemonResponse response, BasicPokemonResponse expectedPokemonResponse)
+
+        private Task I_should_get_not_found_response()
+        {
+            _viewBasicPokemonResponse.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+            return Task.CompletedTask;
+        }
+
+        private static void AssertBasicPokemonResponse(BasicPokemonResponse response,
+            BasicPokemonResponse expectedPokemonResponse)
         {
             response.Name.Should().Be(expectedPokemonResponse.Name);
             response.Habitat.Should().Be(expectedPokemonResponse.Habitat);

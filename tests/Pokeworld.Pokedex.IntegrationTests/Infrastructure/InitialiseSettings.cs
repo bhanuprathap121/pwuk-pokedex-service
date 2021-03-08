@@ -18,12 +18,6 @@ namespace Pokeworld.Pokedex.IntegrationTests.Infrastructure
             Configuration = config.Build();
         }
 
-
-        public string PokeApiUrl()
-        {
-            return Configuration["Services:PokeApiUrl"];
-        }
-
         public IOptions<T> GetSettings<T>(string sectionName) where T : class, new()
         {
             var section = Configuration.GetSection(sectionName);

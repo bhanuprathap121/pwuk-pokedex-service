@@ -19,17 +19,20 @@ namespace Pokeworld.Pokedex.ServiceTests.Scenarios
 
         private async Task I_am_requesting_the_translated_pokemon_details(string name)
         {
-            _viewTranslatedResponse = await FunTranslationApiServiceClient.GetTranslatedPokemonResponse(Client, name);
+            _viewTranslatedResponse = await PokedexApiClient.GetTranslatedPokemonResponse(Client, name);
             await Task.CompletedTask;
         }
 
-        private async Task I_should_see_the_translated_pokemon_details(string[] acceptedTranslations, BasicPokemonResponse expectedPokemon)
+        private async Task I_should_see_the_translated_pokemon_details(string[] acceptedTranslations,
+            BasicPokemonResponse expectedPokemon)
         {
             _viewTranslatedResponse.StatusCode.Should().Be(StatusCodes.Status200OK);
             var response = await _viewTranslatedResponse.DeserializeResponseContent<BasicPokemonResponse>();
             AssertBasicPokemonResponse(response, acceptedTranslations, expectedPokemon);
         }
-        private static void AssertBasicPokemonResponse(BasicPokemonResponse response, string[] acceptedTranslations, BasicPokemonResponse expectedPokemon)
+
+        private static void AssertBasicPokemonResponse(BasicPokemonResponse response, string[] acceptedTranslations,
+            BasicPokemonResponse expectedPokemon)
         {
             response.Name.Should().Be(expectedPokemon.Name);
             response.Habitat.Should().Be(expectedPokemon.Habitat);

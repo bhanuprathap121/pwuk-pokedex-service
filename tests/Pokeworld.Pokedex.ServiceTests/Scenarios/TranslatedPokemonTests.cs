@@ -1,10 +1,14 @@
 ﻿using System.Threading.Tasks;
+using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Pokeworld.Pokedex.Contracts.Api.Responses;
 
 namespace Pokeworld.Pokedex.ServiceTests.Scenarios
 {
+    [FeatureDescription("Api endpoint returns translated pokemon description (or standard when fun translations isn't fun anymore - 429, 500)  and additional information")]
+    [Label("Endpoint 2")]
+
     public partial class TranslatedPokemonTests
     {
         private readonly BasicPokemonResponse _mewtwoPokemon = new BasicPokemonResponse
@@ -13,20 +17,23 @@ namespace Pokeworld.Pokedex.ServiceTests.Scenarios
             Habitat = "rare",
             IsLegendary = true
         };
+
         private readonly BasicPokemonResponse _charmeleonPokemon = new BasicPokemonResponse
         {
             Name = "charmeleon",
             Habitat = "mountain",
             IsLegendary = false
         };
-       
-        private readonly string[] _mewtwoDescriptions = {
+
+        private readonly string[] _mewtwoDescriptions =
+        {
             "Created by a scientist after years of horrific gene splicing and dna engineering experiments,  it was.",
             "It was created by a scientist after years of horrific gene splicing and DNA engineering experiments."
         };
 
-        private readonly string[] _charmeleonDescriptions = {
-            "At which hour it swings its burning tail,  it elevates the temperature to unbearably high levels.",
+        private readonly string[] _charmeleonDescriptions =
+        {
+            "At which hour 't swings its burning tail,  't elevates the temperature to unbearably high levels.",
             "When it swings its burning tail, it elevates the temperature to unbearably high levels."
         };
 

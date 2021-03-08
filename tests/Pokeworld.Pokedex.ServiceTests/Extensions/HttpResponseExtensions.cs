@@ -6,7 +6,9 @@ namespace Pokeworld.Pokedex.ServiceTests.Extensions
 {
     public static class HttpResponseExtensions
     {
-        private static readonly JsonSerializerOptions CamelCaseOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+        private static readonly JsonSerializerOptions CamelCaseOptions = new JsonSerializerOptions
+            {PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+
         public static async Task<T> DeserializeResponseContent<T>(this HttpResponseMessage httpResponseMessage)
         {
             var jsonContent = await httpResponseMessage.Content.ReadAsStringAsync();
