@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Web;
+using Microsoft.Extensions.Options;
 
 namespace Pokeworld.Pokedex.Clients
 {
@@ -13,6 +14,15 @@ namespace Pokeworld.Pokedex.Clients
         public string GetPokemonUrl(string name)
         {
             return $"{_serviceUrls.PokeApiUrl}/{name}";
+        }
+
+        public string GetYodaTranslationUrl(string text)
+        {
+            return $"{_serviceUrls.FunTranslationApiUrl}/{_serviceUrls.YodaPath}?text={HttpUtility.UrlEncode(text)}";
+        }
+        public string GetShakespeareTranslationUrl(string text)
+        {
+            return $"{_serviceUrls.FunTranslationApiUrl}/{_serviceUrls.ShakespearePath}?text={HttpUtility.UrlEncode(text)}";
         }
 
     }

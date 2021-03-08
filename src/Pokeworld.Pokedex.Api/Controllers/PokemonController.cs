@@ -40,9 +40,9 @@ namespace Pokeworld.Pokedex.Api.Controllers
         }
 
         [HttpGet("translated/{name}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TranslatedPokemonResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BasicPokemonResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TranslatedPokemonResponse>> GetTranslatedPokemonAsync(string name)
+        public async Task<ActionResult<BasicPokemonResponse>> GetTranslatedPokemonAsync(string name)
         {
             try
             {

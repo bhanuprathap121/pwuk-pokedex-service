@@ -16,6 +16,8 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Extensions
             var pokemonResponse = _fixture.Create<PokemonResponse>();
             var pokemonSpeciesResponse = _fixture.Create<PokemonSpeciesResponse>();
 
+            pokemonSpeciesResponse.FlavorTextEntries.FirstOrDefault().Language.Name = "en";
+
             var result = pokemonResponse.ToBasicPokemonResponse(pokemonSpeciesResponse);
 
             result.Name.ShouldBe(pokemonResponse.Name);
@@ -24,7 +26,7 @@ namespace Pokeworld.Pokedex.UnitTests.Domain.Extensions
             result.Description.ShouldBe(pokemonSpeciesResponse.FlavorTextEntries.FirstOrDefault()?.FlavorText);
         }
 
-        // cases where flavor text is empty
-        // where pokemonSpecies is empty
+        // todo where flavor text list is empty
+        // todo where pokemonSpecies is empty
     }
 }

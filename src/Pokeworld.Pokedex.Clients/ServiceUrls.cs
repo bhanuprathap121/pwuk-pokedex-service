@@ -7,5 +7,8 @@ namespace Pokeworld.Pokedex.Clients
     {
         public const string Services = "Services";
         public string PokeApiUrl { get; set; }
+        public string FunTranslationApiUrl { get; set; }
+        public string ShakespearePath { get; set; }
+        public string YodaPath { get; set; }
     }
 }
