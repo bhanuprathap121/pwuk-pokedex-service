@@ -64,6 +64,15 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
         }
 
         [Fact]
+        public async Task GetAsync_Should_Return_Error_For_WhiteSpace()
+        {
+            var response = await _sutController.GetAsync(" ");
+
+            response.Result.ShouldNotBeNull();
+            response.Result.ShouldBeOfType<BadRequestResult>().StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
         public async Task GetTranslatedAsync_Should_Return_200_When_Request_Is_Successful()
         {
             var expectedResponse = _fixture.Create<BasicPokemonResponse>();
@@ -96,6 +105,15 @@ namespace Pokeworld.Pokedex.UnitTests.Api.Controllers
 
             response.Result.ShouldNotBeNull();
             response.Result.ShouldBeOfType<ObjectResult>().StatusCode.Should().Be((int)HttpStatusCode.BadGateway);
+        }
+
+        [Fact]
+        public async Task GetTranslatedAsync_Should_Return_Error_For_WhiteSpace()
+        {
+            var response = await _sutController.GetTranslatedPokemonAsync(" ");
+
+            response.Result.ShouldNotBeNull();
+            response.Result.ShouldBeOfType<BadRequestResult>().StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
         }
     }
 }

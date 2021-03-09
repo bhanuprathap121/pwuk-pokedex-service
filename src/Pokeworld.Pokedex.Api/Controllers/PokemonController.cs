@@ -25,12 +25,14 @@ namespace Pokeworld.Pokedex.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BasicPokemonResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<BasicPokemonResponse>> GetAsync(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                return BadRequest();
             try
             {
                 var response = await _pokemonQueryHandler.GetAsync(name);
-
                 return Ok(response);
             }
             catch (PokemonNotExistException ex)
@@ -48,12 +50,14 @@ namespace Pokeworld.Pokedex.Api.Controllers
         [HttpGet("translated/{name}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BasicPokemonResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<BasicPokemonResponse>> GetTranslatedPokemonAsync(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                return BadRequest();
             try
             {
                 var response = await _pokemonQueryHandler.GetTranslatedAsync(name);
-
                 return Ok(response);
             }
             catch (PokemonNotExistException ex)
